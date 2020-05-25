@@ -6,10 +6,14 @@ const paths = {
     dist: path.resolve(__dirname, 'dist')
 };
 
-const commonConfig = require('./configs/webpack/common.config');
+const configs = {
+    common: require('./configs/webpack/common.config'),
+    development: require('./configs/webpack/development.config'),
+    production: require('./configs/webpack/production.config'),
+};
 
-
-module.exports = () => {
+module.exports = ({ MODE } = {}) => {
+    console.log(MODE);
     return {
         context: paths.src, // базовая директория для точек входа и загрузчиков
         entry: {
@@ -20,6 +24,7 @@ module.exports = () => {
             filename: '[name].bundle.js'  // название итогового бандла, получится dist/app.bundle.js
         },
         mode: 'development',
-        ...commonConfig
+        ...configs[MODE],
+        ...configs.common
     }
 };

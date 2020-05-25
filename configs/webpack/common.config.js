@@ -1,10 +1,18 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: "source-map",
     resolve: {
-        extensions: [".ts", ".tsx"]
+        extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'TEST_TASK - DEVSERVER',
+            filename: 'index.html',
+            template: './assets/index.html'
+        })
+    ],
     module: {
         rules: [
             {
@@ -22,9 +30,5 @@ module.exports = {
                 loader: "source-map-loader"
             }
         ]
-    },
-    externals: {
-        react: "React",
-        "react-dom": "ReactDOM"
     }
 };
